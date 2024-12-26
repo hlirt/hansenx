@@ -9,7 +9,7 @@ toc: true
 
 ## Data Preparation
 
-Building on the observation in Part 1 that there are significant differences in pick-up time periods between weekdays and weekends, I refined the scope of analysis by focusing on Uber trip data from January 2023. To investigate potential differences in travel patterns, I first filtered the January data from the full 2023 dataset and categorized trips into weekdays and weekends based on the `time_type`.
+Building on the observation in Part 1 that there are significant differences in pick-up time periods between weekdays and weekends, I refined the scope of analysis by focusing on Uber trip data from January 2023. To investigate potential differences in travel patterns, I first filtered the January data from the full 2023 dataset (There are still 13,000,000 rows of data...) and categorized trips into weekdays and weekends based on the `time_type`.
 
 This classification sets the foundation for clustering analysis, which examines key trip characteristics—including trip miles, fare, trip duration, and cost per mile—to provide deeper insights into how travel behaviors vary between weekdays and weekends.
 

@@ -8,9 +8,9 @@ toc: true
 
 ## Data Preparation
 
-I began by downloading the 2023 ride-hailing and taxi trip data for New York City from [NYC Taxi & Limousine Commission](https://www.nyc.gov/tlc). The dataset included trips from multiple service providers, such as Lyft, Yellow Taxi, and Uber. To focus specifically on Uber trips, I filtered the raw data to isolate records related only to Uber. Given the massive size of the dataset (over hundreds of millions of rows), I stored and processed the data in `.parquet` format to enhance efficiency. Additionally, I leveraged `Dask DataFrame` to handle the large-scale data and support subsequent analyses.
+I began by downloading the 2023 ride-hailing and taxi trip data for New York City from [NYC Taxi & Limousine Commission](https://www.nyc.gov/tlc). The dataset included trips from multiple service providers, such as Lyft, Yellow Taxi, and Uber. To focus specifically on Uber trips, I filtered the raw data to isolate records related only to Uber. Given the massive size of the dataset (over 100,000,000 rows), I stored and processed the data in `.parquet` format to enhance efficiency. Additionally, I leveraged `Dask DataFrame` to handle the large-scale data and support subsequent analyses.
 
-Next, I cleaned and refined the data, removing irrelevant information and retaining only the fields essential for analysis—such as location data (pickup and drop-off coordinates), trip duration, and passenger fares.
+Next, I cleaned and refined the data, removing irrelevant information and retaining only the fields essential for analysis—such as location data (pickup and drop-off location), trip duration, and passenger fares.
 
 Finally, for spatial analysis, I loaded the `taxi_zones.shp file`, also obtained from [NYC Taxi & Limousine Commission](https://www.nyc.gov/tlc). This shapefile served as a spatial reference, enabling me to link trip data to specific geographic zones within New York City.
 
