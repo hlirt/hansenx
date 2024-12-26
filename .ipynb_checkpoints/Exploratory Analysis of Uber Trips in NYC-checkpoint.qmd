@@ -1,0 +1,27 @@
+---
+title: "Exploratory Analysis of Uber Trips in NYC"
+toc: true
+---
+
+## 数据准备
+
+首先，我加载了2023年纽约市的Uber trips（来自[NYC Taxi & Limousine Commission](https://www.nyc.gov/tlc)），在此基础上清理了原始数据集。因为下载下来的数据包含所有的网约车和出租车数据（如Lyft，yellow taxi 以及 uber等等），我需要从中筛选出属于Uber的行程数据。由于数据量太大（超过rows），我使用了.parquet来储存和读取数据，并用daskframe来进行后续操作
+
+然后，我删除了无关信息，只留下来包含位置信息的数据，以及与行程相关的数据（如pick location，trip time，passenger fare等）。
+
+最后，我还加载了taxi_zones.shp（同样来自[NYC Taxi & Limousine Commission](https://www.nyc.gov/tlc)）作为进一步分析的空间参考。
+
+
+
+<div>
+  <p><span style="color:red">Hello everyone</span></p>
+  <p>On this about page, you might want to add more information about yourself, the project, or course. </p>
+
+  - My name is *Eric* **Delmelle**, the instructor for the course. 
+  - You can find more information about me on my [personal website](https://www.design.upenn.edu/people/eric-delmelle).
+  - <span style="color:orange">This site is an example site showing how to use Quarto for the final project for MUSA 550, during fall 2024.</span>
+  - <span style="color:gray">Write something about you</span>
+    - <span style="color:red">or about something you like</span>
+</div>
+
+</div>

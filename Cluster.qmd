@@ -1,0 +1,59 @@
+---
+title: "Weekday vs. Weekend Travel Patterns"
+subtitle: "Cluster Analysis of NYC Uber Trips Across Time and Zones"
+toc: true
+---
+
+
+<br><br>
+
+## Data Preparation
+
+Building on the observation in Part 1 that there are significant differences in pick-up time periods between weekdays and weekends, I refined the scope of analysis by focusing on Uber trip data from January 2023. To investigate potential differences in travel patterns, I first filtered the January data from the full 2023 dataset and categorized trips into weekdays and weekends based on the `time_type`.
+
+This classification sets the foundation for clustering analysis, which examines key trip characteristics—including trip miles, fare, trip duration, and cost per mile—to provide deeper insights into how travel behaviors vary between weekdays and weekends.
+
+<br>
+
+## Clustering Analysis (KMeans)
+In the Uber dataset, I aggregate by `pickup_location` and `time_type` then extract relevant statistical features.
+
+First, I aggregate the data by `pickup_location` and `time_type`, and select `fare`, `trip_miles`, `trip_duration_min`, and `cost_per_mile` as key features. I then calculate the average values of these features along with the total `count` for each zone. 
+
+Next, a K-means clustering analysis is performed, dividing the data into 5 distinct clusters to uncover variations in travel patterns across different areas and time types.
+
+<iframe src="images/cluster_analysis_summary.html" width="600" height="280"></iframe>
+
+**Weekday Analysis**
+
+- Fare: The average fare remains moderate, with Cluster 3 showing the lowest average fare at $17.99, reflecting a dominance of short-distance commuting trips. In contrast, Cluster 2 has a higher average fare of $49.48, suggesting longer, inter-district trips.
+
+- Trip Miles: Distances vary significantly across clusters. Cluster 2 covers the longest distances, averaging 14.44 miles, indicative of inter-district commuting. Cluster 3, with 4.39 miles, highlights short-distance urban travel patterns.
+
+- Duration: Average trip durations follow the distance patterns, with Cluster 2 taking the longest at 35.57 minutes and Cluster 3 being the shortest at 16.12 minutes, emphasizing the efficiency of weekday commutes.
+
+- Trip Count: The highest trip volumes are recorded in Cluster 4 (5,611,508 trips) and Cluster 3 (2,701,924 trips), reflecting peak-hour commuting demand in urban areas.
+
+**Weekend Analysis**
+
+- Fare: Average fares slightly increase compared to weekdays, reflecting higher demand for leisure and entertainment trips. Cluster 4 has a fare of $23.08, while Cluster 3 averages $18.34.
+
+- Trip Miles: Distances are generally shorter during weekends, with Cluster 4 covering an average of 4.35 miles, consistent with localized leisure activities. However, Cluster 2 covers longer distances, averaging 14.50 miles, suggesting inter-district travel.
+
+- Duration: Travel times are longer, with Cluster 2 averaging 31.83 minutes, indicating more relaxed travel patterns for leisure activities. Shorter trips, such as those in Cluster 3 (15.66 minutes), highlight quick, intra-city movements.
+
+- Trip Count: Although total trip volumes decrease compared to weekdays, Cluster 4 maintains a high volume of 1,513,730 trips, suggesting steady demand in central areas during weekends.
+
+<br>
+
+## Weekday vs. Weekend（Altair）
+
+<iframe src="images/combined_chart_vertical.html" width="650" height="1200"></iframe>
+
+**Weekday:**
+On weekdays, Uber trips in NYC are dominated by short-distance, high-frequency commuting patterns, particularly in Manhattan and central business districts. Clusters 3 and 4 capture the highest trip volumes, reflecting commuter demand during peak hours. Meanwhile, peripheral areas like Staten Island and the Bronx (Cluster 2) show longer-distance trips with higher fares, likely serving inter-district commuters traveling to and from residential neighborhoods.
+
+**Weekend:**
+During weekends, Uber trips shift towards leisure and recreational travel, characterized by higher fares per mile and longer trip durations. Cluster 4 highlights shorter-distance trips within city limits, focusing on entertainment and social activities. Conversely, Cluster 2 continues to reflect longer-distance travel patterns, potentially for day trips or special events, while local areas (Cluster 3) sustain moderate volumes for errands and social gatherings.
+
+This spatial distribution difference highlights the shift in urban activity patterns between weekdays and weekends.

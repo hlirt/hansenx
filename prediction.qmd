@@ -1,0 +1,71 @@
+---
+title: "Random Forest-Based Uber Trips Prediction"
+subtitle: "Cluster Analysis of NYC Uber Trips Across Time and Zones"
+toc: true
+---
+
+<br>
+
+Based on the analysis in Part 2, which revealed significant differences in travel patterns between weekdays and weekends, I will now develop a machine learning model to predict Uber demand across different zones. This prediction aims to assist drivers in identifying high-demand locations more effectively. The final dataset contains 48,135 rows
+
+<br>
+
+## Identify Zones with the Highest Uber Trips
+
+To gain insights into the distribution of Uber trip volumes across New York City, I visualized trips based on their geographic locations.
+<iframe src="images/interactive_uber_map_ca6e56.html" width="700" height="550"></iframe>
+
+This map highlights the spatial distribution of Uber demand in different areas of New York City. The highest demand is concentrated in Manhattan's core, parts of Brooklyn, and around JFK Airport—particularly in areas with dense commercial and entertainment activities. In contrast, lower demand is observed in peripheral regions, such as eastern Queens and Staten Island. Building on these observations, I will focus my subsequent analysis and demand forecasting on the Manhattan area.
+
+<br>
+
+## Feature Engineering
+
+I selected several potential variables that might influence Uber demand. These include facility data, such as restaurants, shops, subway stations, bus stops, schools, and hospitals, as well as demographic data, including median income, poverty population, and commuters by taxi. The data were sourced from [OpenStreetMap](https://www.openstreetmap.org/) and [the United States Census Bureau](https://www.census.gov/).
+
+Below, I engineered the features and show the `restaurant_density`, `shop_density`, `subway_density`, `hospital_density`, `school_density`, `bus_stop_density` in the Manhattan area.
+![](images/manhattan_facility_density_maps.png)
+
+Next, query the Census API to get the demographic features, and visualize the distribution maps for `taxi_commuters`, `median_income`, and `poverty_population`.
+![](images/manhattan_demographics_maps_optimized.png)
+
+<iframe src="images/features_analysis.html" width="800" height="600"></iframe>
+
+Then, I calculated the demand at each pickup location with a 1-day, 1-hour, and 2-hour lag, capturing short-term and daily variations in demand trends. These lag features help analysis the temporal patterns of Uber trip demand in Manhattan.
+
+Last, a correlation matrix was created to examined the correlation between those numerical variables.
+![](images/feature_correlation_heatmap.png)
+
+
+<br>`
+
+## Random Forest-Based Prediction Modeling
+
+After conducting a correlation analysis, I split the data into a 70/30% training/test set and developed a Random Forest model.
+
+The model achieved a Mean Absolute Error (MAE) of 31.05 and a Test R-squared of 0.90, indicating that it can serve as a relatively reliable predictive model.
+
+<blockquote><em>MAE</em> = <strong>31.046883748972288</strong></blockquote>
+
+<blockquote><em>Test R-squared</em> = <strong>0.8960920639191985</strong></blockquote>
+
+To further analyze the results, I plotted a bar chart of feature importance, which revealed that the top three most influential features are `cost_per_mile`, `median_income`, and `shop_density`.
+<iframe src="images/feature_importance.html" width="650" height="550"></iframe>
+
+<br>
+
+## Validation
+
+For the test set, we calculated the predicted count, percent error as well as absolute percent error for each observation.
+
+![](images/validation.png){width=450 height=100}
+![](images/percent_error_distribution.png)
+
+I visualized the spatial distribution of percentage errors and compared the spatial patterns of actual and predicted demand counts. This predictive model effectively captures the overall demand trends across the zone.
+![](images/manhattan_predict_maps.png)
+
+The maps illustrate the model's performance in predicting demand across Manhattan. The first map highlights percentage errors, revealing regions with over-predictions (red) and under-predictions (blue). While most areas show relatively small errors, a few zones, particularly in the southern and northern parts, exhibit larger deviations, suggesting localized inaccuracies.
+
+The second and third maps compare the actual and predicted counts, showing that the model effectively captures the overall spatial demand patterns, particularly in high-demand zones. However, discrepancies in certain areas, as reflected by the error map, indicate that the model may struggle with fine-scale variations.
+
+Overall, the model demonstrates strong predictive performance for general trends but requires adjustments to improve accuracy in specific regions with higher errors.

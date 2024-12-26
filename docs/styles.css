@@ -1,1 +1,39 @@
 /* css styles */
+
+
+code {
+    color: #333333; 
+    background-color: #f5f5f5; 
+    padding: 2px 5px; 
+    border-radius: 4px; 
+}
+
+
+pre code {
+    color: #333333; 
+    background-color: #f5f5f5; 
+    padding: 10px; 
+    border-radius: 6px; 
+}
+
+
+a:visited {
+    color: blue; 
+}
+
+
+a {
+    color: #20B2AA; 
+    text-decoration: none; 
+}
+
+
+a:visited {
+    color: #20B2AA; 
+}
+
+
+a:hover {
+    color: #3CB371; 
+    text-decoration: underline; 
+}

@@ -1,0 +1,28 @@
+---
+title: "Exploratory Analysis of Uber Trips in NYC"
+toc: true
+---
+
+
+<br><br>
+
+## Data Preparation
+
+I began by downloading the 2023 ride-hailing and taxi trip data for New York City from [NYC Taxi & Limousine Commission](https://www.nyc.gov/tlc). The dataset included trips from multiple service providers, such as Lyft, Yellow Taxi, and Uber. To focus specifically on Uber trips, I filtered the raw data to isolate records related only to Uber. Given the massive size of the dataset (over hundreds of millions of rows), I stored and processed the data in `.parquet` format to enhance efficiency. Additionally, I leveraged `Dask DataFrame` to handle the large-scale data and support subsequent analyses.
+
+Next, I cleaned and refined the data, removing irrelevant information and retaining only the fields essential for analysis—such as location data (pickup and drop-off coordinates), trip duration, and passenger fares.
+
+Finally, for spatial analysis, I loaded the `taxi_zones.shp file`, also obtained from [NYC Taxi & Limousine Commission](https://www.nyc.gov/tlc). This shapefile served as a spatial reference, enabling me to link trip data to specific geographic zones within New York City.
+
+<br>
+
+## Travel Time Period Analysis (Panel + HoloViews + hvplot)
+I first analyzed the distribution of Uber trip durations across different weekdays. From the chart, it can be observed that trip durations during weekdays exhibit greater variability, with notably higher medians on Thursday and Friday. In contrast, trip durations on weekends are more concentrated and shorter, which may reflect that weekday trips are primarily driven by commuting needs, resulting in longer and more dispersed durations, whereas weekend trips are likely dominated by shorter leisure travel, leading to more consistent and shorter durations.
+<iframe src="images/trip_duration.html" width="700" height="600"></iframe>
+
+I visualized the time-series distribution of Uber trip demand based on different weekdays. The results reveal distinct patterns between weekdays and weekends. For instance, Sundays exhibit a peak demand at midnight (0:00), likely reflecting late-night activities. In contrast, Mondays show a peak around 8:00 AM, aligning with typical weekday commuting hours.
+<iframe src="images/uber_trips_analysis.html" width="800" height="600"></iframe>
+
+So I further look at the relationship between weekday, weekend and hour by using heatmap.
+This heatmap shows the distribution of travel demand by day of the week and hour. Weekday demand is higher overall, especially during the morning and evening peaks (6-9 and 17-20), reflecting the commuting demand profile, while the weekend peaks are mainly concentrated at (18-1), showing the travel patterns of nightlife.
+<iframe src="images/heatmap.html" width="800" height="450"></iframe>
